@@ -1,0 +1,76 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<style>
+    #firstheader {
+        background-color: blue;
+    }
+</style>
+
+<div class="text-center">
+    <h1 id="firstheader" class="display-4">Welcome @ViewBag.MyName</h1>
+    <h2>Really, welcome @DAL.GetEmployeeName()</h2>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+<!--
+This is the old style. Not preferred anymore
+<button onclick="ChangeHeader()">Click Me</button>
+-->
+
+<button id="clicker">Click Me!</button>
+<br /><br />
+<input id="phonenumber" type="text" /><br /><br />
+<button id="click2">Click Again!</button>
+
+<script>
+
+    function ChangeHeader() {
+        let h = document.querySelector('#firstheader');
+        h.style.fontWeight = 'bold';
+        h.style.backgroundColor = 'red';
+    }
+
+    // The above CREATES a function called ChangeHeader
+    // The next line below RUNS that function. The parens () are the key
+    //ChangeHeader();
+    // This next line copies the function into the variable called f.
+    // Now f contains a pointer to the same function.
+    // It does NOT automatically run the function.
+    //let f = ChangeHeader;
+
+
+    let q = 'Hello';
+    //alert(q);
+
+    for (let i = 0; i < 10; i++) {
+        console.log(i);
+    }
+
+    // Let's grab the button and save it in a variable
+
+    let b = document.querySelector('#clicker');
+    b.addEventListener('click', ChangeHeader);
+    // The above line:
+    //     Calls a function named addEventListener (which is a member of the b button);
+    // What does it pass into addEventListener????
+    // Two things:
+    //      1. A string containing the letters c l i c k
+    //      2. The ChangeHeader function. (We are NOT calling ChangeHeader! We are passing ChangeHeader into addEventListener)
+    // Then behind the scenes, the addEventListener function sets up an "event listener" which means
+    // when the user clicks the button, the system will THEN call ChangeHeader.
+
+
+    // Here's a function that grabs the text from the textbox
+    function GrabText() {
+        let t = document.querySelector('#phonenumber');
+        //alert(t.value);
+        let h = document.querySelector('#firstheader');
+        h.innerText = `Hello there ${t.value}`;
+    }
+
+    let b2 = document.querySelector('#click2'); // The button has id click2
+    b2.addEventListener('click', GrabText);
+
+</script>
