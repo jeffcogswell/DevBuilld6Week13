@@ -1,0 +1,74 @@
+﻿
+@{
+    ViewData["Title"] = "GetForm";
+}
+
+<style>
+    .warning {
+        font-weight: bold;
+        color: red;
+    }
+</style>
+
+<h1>GetForm</h1>
+
+<form id="myform" method="post" action="/home/useform">
+    <label>First Name</label><input type="text" id="FirstName" name="FirstName" /><span class="warning" id="FirstNameW"></span><br />
+    <label>Last Name</label><input type="text" id="LastName" name="LastName" /><span class="warning" id="LastNameW"></span><br />
+    <label>Email</label><input type="text" id="Email" name="Email" /><span class="warning" id="EmailW"></span><br />
+    <label>Password</label><input type="password" id="Password" name="Password" /><span class="warning" id="PasswordW"></span><br />
+    <label>Confirm Password</label><input type="password" id="ConfirmPassword" name="ConfirmPassword" /><br />
+    <input type="submit" value="Register" />
+</form>
+
+<script>
+
+    let myform = document.querySelector('#myform');
+    //console.log('myform:');
+    //console.log(myform);
+
+    //     FUNCTION NAME        PARAM1          PARAM2            end of function
+    //myform.addEventListener(   'submit',     function(){}               );
+
+    function validateForm() {
+        let firstName = document.querySelector('#FirstName').value;
+        let lastName = document.querySelector('#LastName').value;
+        let email = document.querySelector('#Email').value;
+        let password = document.querySelector('#Password').value;
+        let cpassword = document.querySelector('#ConfirmPassword').value;
+
+        let result = true;
+
+        if (password != cpassword) {
+            document.querySelector('#PasswordW').innerHTML = 'Passwords do not match';
+            result = false;
+        }
+
+        // if email does not contain a dot OR email does not contain an at, flag as error
+        if (email.indexOf('.') == -1 || email.indexOf('@@') == -1) {
+            // We have an error
+            document.querySelector('#EmailW').innerHTML = 'Email must contain an @@ and a .';
+            result = false;
+        }
+
+        if (firstName.length < 2) {
+            document.querySelector('#FirstNameW').innerHTML = 'First name must have at least two characters';
+            result = false;
+        }
+
+        if (lastName.length < 2) {
+            document.querySelector('#LastNameW').innerHTML = 'Last name must have at least two characters';
+            result = false;
+        }
+
+        return result;
+    }
+
+    myform.addEventListener('submit', function (ev) {
+        if (validateForm() == false) {
+            console.log('Validation failed, skipping submit');
+            ev.preventDefault();
+        }
+    });
+
+</script>
